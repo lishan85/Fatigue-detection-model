@@ -1,6 +1,0 @@
-# data.yaml
-train: D:\yolo_pytorch\Dataset\train\images
-val: D:\yolo_pytorch\Dataset\val\images
-test: D:\yolo_pytorch\Dataset\test\images
-nc: 1
-names: ['eye']
