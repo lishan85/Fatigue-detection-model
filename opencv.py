@@ -1,11 +1,28 @@
+import argparse
 import cv2
 import time
+from pathlib import Path
+
+import mediapipe as mp
 import numpy as np
 from ultralytics import YOLO
-import mediapipe as mp
+
+_SCRIPT_DIR = Path(__file__).resolve().parent
+_DEFAULT_FACE_MODEL = _SCRIPT_DIR / "yolov12l-face.pt"
+
+_parser = argparse.ArgumentParser(description="Webcam fatigue detection demo")
+_parser.add_argument(
+    "--model",
+    type=Path,
+    default=None,
+    help=f"YOLO face weights path (default: {_DEFAULT_FACE_MODEL})",
+)
+_args = _parser.parse_args()
+face_model_path = str(
+    (_args.model if _args.model is not None else _DEFAULT_FACE_MODEL).expanduser().resolve()
+)
 
 #--------------------------------------配置参数
-face_model_path = r'D:/yolo_pytorch/yolov12l-face.pt'
 EAR_THRESHOLD = 0.25   #眼睛判断阈值
 MAR_THRESHOLD = 0.4   #嘴巴判断阈值
 HEAD_PITCH_TH = 20   #低头抬头度数

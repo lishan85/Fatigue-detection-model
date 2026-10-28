@@ -11,7 +11,7 @@
 | 项目 | 说明 |
 |------|------|
 | **做什么** | 实时分析摄像头画面中的人脸，提示可能的疲劳行为（闭眼、张嘴、头姿异常等） |
-| **怎么跑** | 安装依赖 → 修改脚本里的模型路径 → `python opencv.py` → 按 **Esc** 退出 |
+| **怎么跑** | 安装依赖 → `python opencv.py`（可选 `--model`）→ 按 **Esc** 退出 |
 | **效果** | OpenCV 窗口「Eye Detection」：眼部/嘴部标注、Pitch/Roll、控制台数值、可选 **WARNING** 大字 |
 
 ---
@@ -60,7 +60,7 @@
 
 - **Python**：建议 3.9–3.11（MediaPipe 与 Ultralytics 对 3.12+ 的支持因平台而异，遇安装问题可换 3.10）。
 - **硬件**：可用摄像头；GPU 可选（Ultralytics 会自动使用 CUDA，若已安装对应 PyTorch）。
-- **系统**：代码中模型路径默认为 **Windows 盘符**（见下），Linux/macOS 使用前**必须**改路径。
+- **系统**：任意支持 OpenCV 摄像头与上述依赖的平台；权重默认与 `opencv.py` 同目录下的 `yolov12l-face.pt`。
 
 ---
 
@@ -85,19 +85,17 @@ pip install -r requirements.txt
 
 ## 运行
 
-1. **修改模型路径**（必做）：打开 `opencv.py`，将第 8 行附近：
+1. **模型路径（默认即可）**  
+   程序用 `pathlib` 基于 `opencv.py` 所在目录解析权重，**默认**加载同目录下的 `yolov12l-face.pt`（当前仓库布局下即项目根目录中的权重文件）。  
+   若权重在其他位置，可通过命令行覆盖：
 
-   ```python
-   face_model_path = r'D:/yolo_pytorch/yolov12l-face.pt'
+   ```bash
+   python opencv.py --model /path/to/yolov12l-face.pt
    ```
 
-   改为你本机 **`yolov12l-face.pt` 的实际路径**。若权重与脚本同目录，可例如：
+   `--model` 也可传相对路径，会按当前工作目录解析后再转为绝对路径。
 
-   ```python
-   face_model_path = 'yolov12l-face.pt'  # 相对路径，需在仓库根目录执行 python
-   ```
-
-2. **启动**（在含 `opencv.py` 的目录）：
+2. **启动**：
 
    ```bash
    python opencv.py
@@ -130,7 +128,15 @@ pip install -r requirements.txt
 
 ---
 
-## 可调参数（`opencv.py` 顶部）
+## 可调参数
+
+**命令行**
+
+| 参数 | 默认值 | 含义 |
+|------|--------|------|
+| `--model` | `<脚本目录>/yolov12l-face.pt` | YOLO 人脸检测权重路径 |
+
+**源码常量**（`opencv.py` 顶部）
 
 | 变量 | 默认值 | 含义 |
 |------|--------|------|
@@ -145,8 +151,7 @@ pip install -r requirements.txt
 
 ## 已知限制
 
-- **硬编码路径**：默认 `D:/yolo_pytorch/...`，克隆后直接运行会找不到权重。
-- **单脚本、无配置化**：摄像头索引、阈值、窗口名均在源码中写死。
+- **单脚本、配置有限**：除 `--model` 外，摄像头索引、阈值、窗口名等仍在源码中写死。
 - **非产品级 DMS**：规则阈值 + 10 秒窗口，未做标定、无多用户、无数据记录；**不能**替代法规要求的驾驶员监控系统。
 - **性能**：YOLO 全帧 + MediaPipe 逐人脸裁剪，帧率取决于 CPU/GPU 与分辨率。
 - **多人脸**：YOLO 可检多张脸，但 MediaPipe 配置为 `max_num_faces=1`，每张裁剪图内只处理一张 mesh。
