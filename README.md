@@ -155,10 +155,23 @@ pip install -r requirements.txt
 - **非产品级 DMS**：规则阈值 + 10 秒窗口，未做标定、无多用户、无数据记录；**不能**替代法规要求的驾驶员监控系统。
 - **性能**：YOLO 全帧 + MediaPipe 逐人脸裁剪，帧率取决于 CPU/GPU 与分辨率。
 - **多人脸**：YOLO 可检多张脸，但 MediaPipe 配置为 `max_num_faces=1`，每张裁剪图内只处理一张 mesh。
-- **许可证**：仓库根目录**未包含** `LICENSE` 文件，使用前请自行确认权重与依赖库的许可条款。
+- **许可证**：本仓库代码以 [GNU AGPL-3.0](LICENSE) 发布；`yolov12l-face.pt` 权重文件的来源与许可条款见下文「许可证」一节，使用前请自行核实。
 
 ---
 
 ## 许可证
 
-本仓库**尚未声明**开源许可证文件。如需对外发布，请添加 `LICENSE` 并确认 `yolov12l-face.pt` 权重的分发权限。
+### 源代码
+
+本仓库中的**源代码**（含 `opencv.py` 等）以 **GNU Affero General Public License v3.0（AGPL-3.0）** 发布。完整许可证正文见仓库根目录 [`LICENSE`](LICENSE)。
+
+选用 AGPL-3.0 的原因之一：本项目依赖 [Ultralytics YOLO](https://github.com/ultralytics/ultralytics)（AGPL-3.0）。若您在网络服务中运行或修改本项目的相关代码，请同时遵守 AGPL-3.0 对源码提供与网络交互条款的要求。
+
+### 模型权重 `yolov12l-face.pt`
+
+仓库内包含约 51 MB 的 **`yolov12l-face.pt`**（YOLO 人脸检测权重，文件名表示 YOLOv12 **L**arge 人脸用途）。该文件自早期提交起即随仓库分发，**提交历史与文档中未记录其原始下载地址或上游发布页**。
+
+- **来源**：**待确认**（维护者与使用者需自行核实权重的训练方、发布渠道与获取方式）。
+- **许可**：**请使用者自行核实**该权重文件及其训练数据所适用的许可证与分发条件；本 README 与 [`LICENSE`](LICENSE) **不对该权重文件授予任何额外权利**，也不保证其可再分发。
+
+其他依赖（如 OpenCV、MediaPipe、PyTorch 等）各自适用其上游许可证，不在此重复列举。
