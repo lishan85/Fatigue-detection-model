@@ -169,9 +169,9 @@ pip install -r requirements.txt
 
 ### 模型权重 `yolov12l-face.pt`
 
-仓库内包含约 51 MB 的 **`yolov12l-face.pt`**（YOLO 人脸检测权重，文件名表示 YOLOv12 **L**arge 人脸用途）。该文件自早期提交起即随仓库分发，**提交历史与文档中未记录其原始下载地址或上游发布页**。
+仓库内包含约 53.5 MB 的 **`yolov12l-face.pt`**（YOLO 人脸检测权重，文件名表示 YOLOv12 **L**arge 人脸用途）。
 
-- **来源**：**来自网络**（作者本人说明，已无法确认具体出处）。
-- **许可**：权重的许可证**未知**，**不受**本仓库 [`LICENSE`](LICENSE) 授权；使用与再分发前请**自行核实**来源和许可。本 README 不对该权重文件授予任何额外权利。
+- **来源**：[akanametov/yolo-face](https://github.com/akanametov/yolo-face) 在 [Release 1.0.0](https://github.com/akanametov/yolo-face/releases/tag/1.0.0) 中发布的 [`yolov12l-face.pt`](https://github.com/akanametov/yolo-face/releases/download/1.0.0/yolov12l-face.pt)。
+- **许可**：上游仓库整体以 [GNU GPL-3.0](https://github.com/akanametov/yolo-face/blob/dev/LICENSE) 发布；权重文件未单独标注许可证，**按仓库许可证处理**。GPL-3.0 与本仓库源代码的 AGPL-3.0 **兼容**（在遵守各自许可证条款的前提下组合使用与再分发）。本 README 不对该权重文件授予超出上游许可证的任何额外权利。
 
 其他依赖（如 OpenCV、MediaPipe、PyTorch 等）各自适用其上游许可证，不在此重复列举。
